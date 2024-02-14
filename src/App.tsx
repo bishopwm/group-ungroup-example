@@ -22,6 +22,27 @@ function App() {
     await boardItems[0].ungroup();
   };
 
+  const deleteGroup = async () => {
+    console.log("delete");
+    const selection = await board.getSelection();
+    console.log(selection);
+    let targetGroup = selection.filter((obj) => {
+      return obj.type === "group";
+    });
+    console.log(targetGroup);
+    const groupToDelete = targetGroup[0];
+    await board.remove(groupToDelete);
+  };
+
+  // const listGroups = async () => {
+  //   let allGroups = await miro.board.get({ type: "group" });
+  //   console.log(allGroups);
+  //   let listDiv = document.getElementById("groups-list");
+  //   for (var i = 0; i < allGroups.length; i++) {
+  //     listDiv.innerHTML += "Group ID: " + allGroups[i].id + "<br></br>";
+  //   }
+  // };
+
   return (
     <div className="grid" style={{ height: "auto", width: "100%" }}>
       <div className="cs1 ce12">
@@ -43,6 +64,17 @@ function App() {
           Ungroup Selection
         </button>
       </div>
+      <div className="cs1 ce12">
+        <button className="button button-primary" onClick={deleteGroup}>
+          Delete Selected Group
+        </button>
+      </div>
+      <div className="cs1 ce12">
+        {/* <button className="button button-primary" onClick={listGroups}>
+          List Groups
+        </button> */}
+      </div>
+      <div id="groups-list"></div>
     </div>
   );
 }
